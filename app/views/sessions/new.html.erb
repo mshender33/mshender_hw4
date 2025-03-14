@@ -1,6 +1,6 @@
 <h1>Login</h1>
-
-<form action="/sessions" method="post">
-
-  <button>Login<button>
-</form>
+<%= form_with url: login_path, local: true do |f| %>
+  <p>Email: <%= f.email_field :email %></p>
+  <p>Password: <%= f.password_field :password %></p>
+  <p><%= f.submit "Login" %></p>
+<% end %>
