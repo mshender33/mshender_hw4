@@ -1,5 +1,10 @@
 <h1 class="text-center my-4">Explore Places</h1>
 
+<!-- Add New Place Button -->
+<div class="text-center mb-4">
+  <%= link_to "Add a New Place", new_place_path, class: "btn btn-success" %>
+</div>
+
 <div class="container">
   <div class="row">
     <% @places.each do |place| %>
