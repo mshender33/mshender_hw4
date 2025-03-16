@@ -7,8 +7,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to places_path, notice: "Welcome, #{@user.email}!"
+      redirect_to places_path, notice: "Account created successfully!"
     else
+      flash[:alert] = "Error creating account."
       render :new
     end
   end

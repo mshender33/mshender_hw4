@@ -1,7 +1,20 @@
 <h1>Sign Up</h1>
-<%= form_with model: @user, local: true do |f| %>
-  <p>Email: <%= f.email_field :email %></p>
-  <p>Password: <%= f.password_field :password %></p>
-  <p>Confirm Password: <%= f.password_field :password_confirmation %></p>
-  <p><%= f.submit "Sign Up" %></p>
+
+<%= form_with model: @user, url: users_path, method: :post do |form| %>
+  <p>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </p>
+
+  <p>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </p>
+
+  <p>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
+  </p>
+
+  <%= form.submit "Sign Up", class: "btn btn-success" %>
 <% end %>
