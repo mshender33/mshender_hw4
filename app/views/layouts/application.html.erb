@@ -31,12 +31,12 @@
               <%= link_to "Dashboard", places_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Logout", logout_path, method: :delete, class: "btn btn-danger text-white nav-link" %>
+              <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-danger nav-link text-white", form: { class: "d-inline" } %>
             </li>
           <% else %>
             <!-- User is NOT logged in -->
             <li class="nav-item">
-              <%= link_to "Sign Up", new_user_path, class: "btn btn-success mx-2" %> <!-- Ensures correct route -->
+              <%= link_to "Sign Up", new_user_path, class: "btn btn-success mx-2" %>
             </li>
             <li class="nav-item">
               <%= link_to "Log In", login_path, class: "btn btn-primary" %>

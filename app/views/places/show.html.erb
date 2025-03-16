@@ -1,16 +1,32 @@
-<h1><%= @place["name"] %></h1>
+<h1><%= @place.name %></h1>
 
-<h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
+<h2>Entries for this Place</h2>
+
+<% if @place.entries.any? %>
+  <div class="entries-list">
+    <% @place.entries.each do |entry| %>
+      <div class="card mb-3" style="width: 100%;">
+        <div class="row g-0">
+          <% if entry.image.attached? %>
+            <div class="col-md-4">
+              <%= image_tag entry.image, class: "img-fluid rounded-start", style: "max-height: 200px; object-fit: cover;" %>
+            </div>
+          <% end %>
+
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= entry.title %></h5>
+              <p class="card-text"><strong>Date of Visit:</strong> <%= entry.occurred_on.strftime("%B %d, %Y") if entry.occurred_on %></p>
+              <p class="card-text"><%= entry.description.truncate(200) %></p>
+              <%= link_to "View Full Entry", place_entry_path(@place, entry), class: "btn btn-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No entries yet. <%= link_to "Add one now", new_place_entry_path(@place), class: "btn btn-success btn-sm" %></p>
 <% end %>
 
-<p>
-  <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
-</p>
-
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
+<%= link_to "Back to Places", places_path, class: "btn btn-secondary mt-3" %>

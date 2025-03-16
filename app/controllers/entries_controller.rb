@@ -1,12 +1,16 @@
 class EntriesController < ApplicationController
   before_action :set_place
   before_action :set_entry, only: [:show]
+  before_action :require_login
 
   def index
-    @entries = @place.entries
+    @entries = @place.entries.where(user_id: session[:user_id])  # ✅ Only show user's entries
   end
 
   def show
+    unless @entry.user_id == session[:user_id]
+      redirect_to place_entries_path(@place), alert: "You do not have access to this entry."
+    end
   end
 
   def new
@@ -15,10 +19,11 @@ class EntriesController < ApplicationController
 
   def create
     @entry = @place.entries.new(entry_params)
+    @entry.user_id = session[:user_id]  # ✅ Assign current user
+
     if @entry.save
-      redirect_to place_entries_path(@place), notice: "Entry created successfully!"
+      redirect_to place_entries_path(@place), notice: "Entry added successfully!"
     else
-      flash.now[:alert] = "There was an error creating the entry."
       render :new
     end
   end
@@ -26,14 +31,18 @@ class EntriesController < ApplicationController
   private
 
   def set_place
-    @place = Place.find(params[:place_id])  # ✅ Ensures entries are scoped under places
+    @place = Place.find(params[:place_id])
   end
 
   def set_entry
-    @entry = @place.entries.find(params[:id])  # ✅ Avoids unnecessary queries
+    @entry = @place.entries.find(params[:id])
   end
 
   def entry_params
-    params.require(:entry).permit(:title, :description, :date, :image)  # ✅ Strong params
+    params.require(:entry).permit(:title, :description, :occurred_on, :image)
+  end
+
+  def require_login
+    redirect_to login_path, alert: "You must be logged in to access this page." unless session[:user_id]
   end
 end

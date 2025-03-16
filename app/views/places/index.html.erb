@@ -1,11 +1,29 @@
-<h1>Places</h1>
+<h1 class="text-center my-4">Explore Places</h1>
 
-<ul>
-  <% for place in @places %>
-    <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="row">
+    <% @places.each do |place| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <% if place.entries.any? && place.entries.first.image.attached? %>
+            <%= image_tag place.entries.first.image, class: "card-img-top", style: "height: 250px; object-fit: cover;" %>
+          <% else %>
+            <%= image_tag "default-placeholder.jpg", class: "card-img-top", style: "height: 250px; object-fit: cover;" %>
+          <% end %>
 
-<p>
-  <a href="/places/new">New place</a>
-</p>
+          <div class="card-body">
+            <h5 class="card-title text-center"><%= place.name %></h5>
+
+            <% if place.entries.any? %>
+              <p class="card-text"><strong>Date of Visit:</strong> <%= place.entries.first.occurred_on.strftime("%B %d, %Y") %></p>
+              <p class="card-text"><%= truncate(place.entries.first.description, length: 100) %></p>
+              <%= link_to "View More", place_path(place), class: "btn btn-primary w-100" %>
+            <% else %>
+              <p class="text-muted text-center">No entries yet</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
