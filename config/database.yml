@@ -1,18 +1,29 @@
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-
-development:
-  <<: *default
-  database: db/development.sqlite3
-
-test:
-  <<: *default
-  database: db/test.sqlite3
-
-production:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= ENV["DATABASE_URL"] %>
+
+development:
+  <<: *default
+  database: tacostogram_fonal
+  username: tacostogram_fonal_user
+  password: nK8Vg560ed069FMmGMb3r2u00ocKEAvl
+  host: dpg-cv89r7l2ng1s73duisr0-a
+  port: 5432
+
+test:
+  <<: *default
+  database: tacostogram_fonal_test
+  username: tacostogram_fonal_user
+  password: nK8Vg560ed069FMmGMb3r2u00ocKEAvl
+  host: dpg-cv89r7l2ng1s73duisr0-a
+  port: 5432
+
+production:
+  <<: *default
+  database: tacostogram_fonal
+  username: tacostogram_fonal_user
+  password: nK8Vg560ed069FMmGMb3r2u00ocKEAvl
+  host: dpg-cv89r7l2ng1s73duisr0-a
+  port: 5432
+  url: postgresql://tacostogram_fonal_user:nK8Vg560ed069FMmGMb3r2u00ocKEAvl@dpg-cv89r7l2ng1s73duisr0-a/tacostogram_fonal
