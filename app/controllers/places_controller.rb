@@ -3,7 +3,7 @@ class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
 
   def index
-    @places = Place.where(user: current_user)  # ✅ Only show places belonging to the logged-in user
+    @places = current_user.places.order(created_at: :desc)  # ✅ Only show places belonging to the logged-in user
   end
 
   def show
@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
   def create
     @place = current_user.places.build(place_params)
     if @place.save
-      redirect_to places_path, notice: "Place created successfully!"
+      redirect_to new_place_entry_path(@place), notice: "Place created! Now add your first entry."
     else
       render :new
     end
