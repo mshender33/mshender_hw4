@@ -1,4 +1,6 @@
 class User < ApplicationRecord
-  has_secure_password  # This requires a 'password_digest' column
-  has_many :entries, dependent: :destroy
+  has_secure_password
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, length: { minimum: 1 }
 end

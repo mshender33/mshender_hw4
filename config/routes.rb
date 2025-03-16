@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  root "sessions#new"  # Homepage directs to login
+  # Homepage directs to login
+  root "sessions#new"
 
   # User Authentication
-  resources :users, only: [:new, :create]  # Handles sign-up
-  
+  resources :users, only: [:new, :create]
+  get "signup", to: "users#new", as: "signup"
+
   # Sessions (Login & Logout)
   resources :sessions, only: [:new, :create, :destroy]
   get "login", to: "sessions#new", as: "login"
@@ -12,6 +14,9 @@ Rails.application.routes.draw do
 
   # Places and Nested Entries
   resources :places do
-    resources :entries, only: [:new, :create, :index, :show]  # Nested routes for entries under places
+    resources :entries, only: [:new, :create, :index, :show]
   end
+
+  # Ensure standalone entries routes exist if needed
+  resources :entries, only: [:new, :create, :index, :show]
 end
