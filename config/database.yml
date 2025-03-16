@@ -14,7 +14,7 @@ test:
 production:
   <<: *default
   adapter: postgresql
-  database: tacostogram_fonal
-  username: tacostogram_fonal_user
-  password: nK8Vg560ed069FMmGMb3r2u00ocKEAvl
+  database: mshender_hw4
+  username: mshender
+  password: jO6nFzuK6nxqMsmVtYCB47lWsbowqcHf
 
