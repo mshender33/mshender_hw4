@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  root "sessions#new"  # Homepage directs to login
+  root "sessions#new"
 
   # User Authentication
   resources :users, only: [:new, :create]
-  get "signup", to: "users#new", as: "signup"  
+  get "signup", to: "users#new", as: "signup"
+  
 
   # Sessions (Login & Logout)
   get "login", to: "sessions#new", as: "login"

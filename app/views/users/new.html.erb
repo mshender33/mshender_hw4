@@ -1,3 +1,4 @@
+<!-- app/views/users/new.html.erb -->
 <h1>Sign Up</h1>
 
 <% if flash[:alert] %>
@@ -6,42 +7,21 @@
 
 <%= form_with model: @user, url: users_path, local: true do |form| %>
   <p>
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </p>
+  <p>
     <%= form.label :email %>
     <%= form.email_field :email, required: true %>
   </p>
-
   <p>
     <%= form.label :password %>
     <%= form.password_field :password, required: true %>
   </p>
-
   <p>
     <%= form.label :password_confirmation %>
     <%= form.password_field :password_confirmation, required: true %>
   </p>
 
-
-<h1>Sign Up</h1>
-
-<%= form_with model: @user, url: users_path, method: :post do |form| %>
-  <p>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </p>
-  <p>
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </p>
-  <p>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </p>
-  <p>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </p>
   <%= form.submit "Sign Up", class: "btn btn-success" %>
-<% end %>
-
-  <%= form.submit "Sign Up", class: "btn btn-primary" %>
 <% end %>

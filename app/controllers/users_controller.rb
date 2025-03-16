@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to places_path, notice: "Account created successfully!"
     else
-      flash.now[:alert] = "Error creating account. Please check your inputs."
+      flash.now[:alert] = "Error creating account"
       render :new
     end
   end
