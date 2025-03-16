@@ -14,9 +14,10 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: tacostogram_fonal
   username: tacostogram_fonal_user
-  password: nK8Vg560ed069FMmGMb3r2u00ocKEAvl
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
   host: dpg-cv89r7l2ng1s73duisr0-a.oregon-postgres.render.com
-  port: 3000
+  port: 5432
   sslmode: require
